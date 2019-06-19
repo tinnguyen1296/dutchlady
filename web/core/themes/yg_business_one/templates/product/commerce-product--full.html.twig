@@ -1,0 +1,274 @@
+{#
+/**
+ * @file
+ *
+ * Default product template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - product: The rendered product fields.
+ *   Use 'product' to print them all, or print a subset such as
+ *   'product.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ product|without('title') }}
+ *   @endcode
+ * - product_entity: The product entity.
+ * - product_url: The product URL.
+ *
+ * @ingroup themeable
+ */
+#}
+<article{{ attributes }} id="product">
+    <div class="banner-product mb-4">
+        <div class="banner-desktop">
+            {{ product.field_banner }}
+        </div>
+        <div class="banner-mobile">
+            {{ product.field_banner_mobile }}
+        </div>
+    </div>
+
+    <div class="container wrapper-section">
+        <div class="row">
+            <div class="col-md-6 order-md-1 order-2">
+                <div class="title-desktop">
+                    <div class="product">
+                        <h3 class="h1 text-uppercase">
+                            Sản phẩm
+                        </h3>
+                    </div>
+                    <div class="title">
+                        <div class="product-title">
+                        </div>
+                        <div class="product-short-des">
+                            {{ product.field_short_description.0 }}
+                        </div>
+                    </div>
+                    <div class="capacities">
+                        <h5 class="h5">
+                            <span>Dung tích: </span>
+                            <span class="product-capacities"></span>
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="description">
+                    {{ product.body }}
+                </div>
+                <div id="product-tab-title" class="mt-3">
+                    <div class="wrapper-tab d-flex">
+                        <div class="tab-child mr-2" data-id="wrapper-information">
+                            <div class="wrapper button-group">
+                              <button type="button" name="button" class="btn btn-primary btn-primary-custom text-uppercase">
+                                <span>Thông tin sản phẩm</span>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                        </div>
+                        <div class="tab-child" data-id="wrapper-public-profile">
+                            <div class="wrapper button-group">
+                                <button type="button" name="button" class="btn btn-primary btn-primary-custom text-uppercase">
+                                  <span>Hồ sơ công bố sản phẩm</span>
+                                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 order-md-2 order-1">
+                <div class="row">
+                    <div class="title-mobile mb-3">
+                        <div class="product">
+                            <h3 class="h1 text-uppercase">
+                                Sản phẩm
+                            </h3>
+                        </div>
+                        <div class="title">
+                            <div class="product-title">
+                            </div>
+                            <div class="product-short-des">
+                                {{ product.field_short_description.0 }}
+                            </div>
+                        </div>
+                        <div class="capacities">
+                            <h5 class="h5">
+                                <span>Dung tích: </span>
+                                <span class="product-capacities"></span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-3 order-2 order-md-1">
+                        {{ product.field_image_product }}
+                    </div>
+                    <div class="col-md-9 col-9 order-1 order-md-2">
+                        <div class="row">
+                            <div class="col-9 order-2 col-md-12 order-md-1">
+                                <div id="container-product-images" class="swiper-container gallery-top container-product-images ">
+                                </div>
+                            </div>
+                            <div class="col-3 order-1 col-md-12 order-md-2 thumbnails">
+                                <div id="container-product-thumbnails" class="swiper-container gallery-thumbs container-product-thumbnails ">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="product-tab-content" class="container">
+
+        <div id="wrapper-information" class="template hidden">
+            <div class="title">
+                <div class="product-title">
+                </div>
+                <div class="product-short-des">
+                    {{ product.field_short_description.0 }}
+                </div>
+            </div>
+          <div class="row">
+            <div class="col-md-7 order-md-1 order-2">
+              <div class="product-detail">
+                <div class="row">
+                  <div class="col-md-3 col-6 d-flex align-items-center">
+                    {{ product.field_image_info.1 }}
+                  </div>
+
+                  <div class="col-md-4 col-6 d-flex align-items-center">
+                    {{ product.field_image_info.0 }}
+                  </div>
+
+                  <div class="col-md-5 col-12">
+                    <div id="detail" class="paragraph">
+                    </div>
+                  </div>
+
+                </div>
+                <div class="wrapper-nutrients row mt-5">
+                  <div class="">
+                    <div class="nutrients-title">
+                      <span class="count_chat_khoang"></span> <span>Chất Khoáng</span>
+                    </div>
+                    <div id="chat_khoang" class="paragraph paragraph-custom">
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="nutrients-title">
+                      <span class="count_vitamin"></span> <span>Vitamin</span>
+                    </div>
+                    <div id="vitamin" class="paragraph paragraph-custom">
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="description-detail mt-3">
+                      {{ product.field_description_detail }}
+                  </div>
+              </div>
+            </div>
+              <div class="col-md-5 order-md-2 order-1">
+                  <div class="row wrapper-content-right">
+                      <div class="col-9 d-flex align-items-center">
+                          <div id="image-detail" class=""></div>
+                      </div>
+                      <div class="col-3 d-flex">
+                          <div id="content-detail"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+        </div>
+
+        <div id="wrapper-public-profile" class="template hidden">
+            <div id="product-public-profile-template" class="hidden">
+                <div class="col-sm-12 col-md-6 template-content mt-4">
+                    <div class="doc-download text-uppercase">
+                        <div class="doc-title"></div>
+                        <a class="btn btn-primary btn-download text-uppercase" download="">
+                            <span class="text-uppercase">tải hồ sơ</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="product-public-profile">
+                <div class="section-title underline">
+                    <h3 class="text title-block">Hồ sơ công bố sản phẩm</h3>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    {% if product.field_videos.0 %}
+        <div id="videos" class="container my-4">
+            <h3 class="h2">Videos</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="content mb-3">
+                        {{ product.field_videos.0['#paragraph'].field_content.0.value | raw }}
+                    </div>
+                    <div class="youtube-image swiper-container">
+                        <div class="swiper-wrapper">
+                            {% for link in product.field_videos.0['#paragraph'].field_youtube_id %}
+                                <div class="swiper-slide">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ link.value }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-container youtube-thumbs">
+                            <div class="swiper-wrapper">
+                                {% for link in product.field_videos.0['#paragraph'].field_youtube_id %}
+                                    <div class="swiper-slide">
+                                        <img class="img-fluid" src="https://img.youtube.com/vi/{{ link.value }}/maxresdefault.jpg" alt="">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if image_video %}
+                    <div class="col-md-6 d-flex flex-column">
+                        <div class="img">
+                            <img src="{{ image_video.image }}" alt="{{ image_video.alt }}" class="img-fluid">
+                        </div>
+                        <div class="title-image-video d-flex flex-column align-items-center">
+                            <span>{{ image_video.alt }}</span>
+                            <span>{{ image_video.title }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {#TODO Block Product#}
+    {{ drupal_entity('block', 'views_block__product_list_block_1_2') }}
+
+    {% if images_other > 0%}
+        <div class="container my-4">
+            <div class="d-flex justify-content-center mb-2">
+                <h3 class="h4">{{ product.field_title_image_other }}</h3>
+            </div>
+            <div class="wrapper-image-other ">
+                {% for image in images_other %}
+                    <div class="wrapper-item item-{{ image.index }}">
+                        <div class="item " style="background-image: url({{ image.url }})">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% endif %}
+
+</article>

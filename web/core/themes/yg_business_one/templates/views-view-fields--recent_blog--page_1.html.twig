@@ -1,0 +1,29 @@
+<div class="items wow fadeInUp">
+          <div class="blog-listing">
+              <div class="row">
+                <div class="col-md-4 blog-image">
+                  <div class="listing-image">
+                   <a href="{{ fields.view_node.content}}"><img src="{{ fields.field_listing_blog_img.content}}" alt="blog-img" class="img-responsive"></a>
+                   </div>
+                </div>
+                <div class="col-md-8 blog-content">
+                  <div class="blog-description">
+                    <div class="row">
+                      <div class="col-md-1 blog-date">
+                        <p>{{ fields.created.content}}</p>
+                      </div>
+                      <div class="col-md-11">
+                        <a href="{{ fields.view_node.content}}"> <h6>{{ fields.field_blog_title.content}}</h6></a>
+                        <h6>By: {{ fields.name.content}} | Published On: {{ fields.created_1.content}}</h6>
+                      </div>
+                      <div class="col-md-12 content">
+                        {{ fields.body.content}}
+                        <a href="{{ fields.view_node.content}}" class="btn btn-infos">Read More...</a>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+          </div>
+ </div>
+       

@@ -1,0 +1,44 @@
+<!-- BLOG DETAILS SECTION -->
+
+{% set date = node.createdtime|format_date('blog_date') %}
+
+{% set date1 = node.createdtime|format_date('blog_month') %}
+{% set createdDate = node.getCreatedTime|format_date('post_date') %}
+
+
+  <section id="blog-details">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="blog-detail">
+              <img src="{{ content.field_blog_image.0 }}" 
+              alt="blog detail img" class="img-responsive">
+                <div class="blog-description">
+                  <div class="row">
+                    <div class="col-md-1 blog-date">
+                      <p>{{ date }}<br> {{ date1 }}</p>
+                    </div>
+                    <div class="col-md-11">
+                      <h6>{{ content.field_blog_title.0 }}</h6>
+                      <h6>By: {{ user.displayname }} | Published On: {{ createdDate }}</h6>
+                    </div>
+                    <div class="col-md-12">
+                      <p>{{ content.body.0}} </p>
+                    </div>
+                 
+        <div class="col-md-12 mx-auto comments">
+          <h4>Comments</h4>
+            <div class="container">  
+              <div class="row outer">
+                {{ content.field_comments }} 
+             </div> 
+           </div>
+        </div>
+      </div>
+       </div>  
+                </div>
+              </div>  
+        </div>
+        <a href="{{ content.field_blog_details_link[0]['#url']|render }}" class="btn btn-infos">{{ content.field_blog_details_link[0]['#title'] }}</a>
+    </div>
+  </section>

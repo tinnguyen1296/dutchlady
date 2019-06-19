@@ -1,0 +1,14 @@
+<!-- TESTIMONIAL SECTION -->
+  <section id="testimonial">
+    <div class="container wow fadeInUp">
+      <h2>What Our Customers Say?</h2>
+      <div class="row">          
+      <div class="loop owl-carousel owl-theme">
+            {% for row in rows %}
+                 {{ row.content }}
+              {% endfor %}
+        </div>  
+        </div>
+      </div>  
+    </section>      
+<!-- END TESTIMONIAL SECTION  -->

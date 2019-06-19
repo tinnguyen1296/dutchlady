@@ -1,0 +1,110 @@
+
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="logo-mobile">
+            <a href="{{ path('<front>') }}"
+               class="logo-header navbar-brand mx-auto d-block text-center order-0 order-md-0 w-15">
+                <div class="wrapper-logo">
+                    <div class="logo">
+                        <img src="{{ logopath }}" alt="" />
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="container">
+            {#        <a href="{{ path('<front>') }}"><img src="{{ logopath }}" alt="logo"></a>#}
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"  aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <div class="search-mobile">
+                    <a href="" class=""><i class="icofont-search"></i></a>
+                </div>
+                {{ page.primary_menu }}
+
+                <div class="dual-nav w-15 order-3 external-link-header">
+                    <div class="social">
+                        <a href="" class="right-border"><i class="icofont-search"></i></a>
+                        <a href="{{ facebook }}" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="{{ youtube }}" class="youtube"><i class="fa fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{{page.slider}}
+<div class="container">
+    {{ page.bread_crumb }}
+</div>
+
+<section {{ content_attributes.addClass(content_classes) }}>
+
+    {# Content #}
+    {% block content %}
+        <a id="main-content"></a>
+        {{ page.content }}
+    {% endblock %}
+</section>
+
+
+
+<!-- FOOTER SECTION-->
+<section id="footer">
+    <div class="container wow fadeInUp">
+        <div class="row">
+
+            <div class="col-md-2 col-sm-12 footer-columns">
+                {{ page.footer_col_1 }}
+            </div>
+
+            <div class="col-md-3 col-sm-12 footer-columns">
+                {{ page.footer_col_2 }}
+            </div>
+
+
+            <div class="col-md-2 col-sm-12 footer-columns">
+                {{ page.footer_col_3 }}
+            </div>
+            <div class="col-md-5 col-sm-12 footer-columns">
+                {{ page.footer_col_4 }}
+            </div>
+
+            {#          <div class="col-md-4 col-sm-12 footer-columns">#}
+            {#            <h6>SOCIAL</h6>#}
+            {#            <div class="social">#}
+            {#                <a href="{{twitter}}" class="twitter"><i class="fa fa-twitter"></i></a>#}
+            {#                <a href="{{facebook}}" class="facebook"><i class="fa fa-facebook"></i></a>#}
+            {#                <a href="{{instagram}}" class="instagram"><i class="fa fa-instagram"></i></a>#}
+            {#                <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>#}
+            {#                <a href="#" class="google-plus"><i class="fa fa-pinterest" aria-hidden="true"></i></a>#}
+            {#            </div>#}
+            {#          </div>#}
+        </div>
+    </div>
+</section>
+
+<div class="copyright">
+    <div class="footer-copyright text-center">
+        <ul class="list-inline footer-policy" style="margin-bottom:5px;">
+            <li class="list-inline-item right-border-footer">
+                <a href="">Chính sách bảo mật</a>
+            </li>
+            <li class="list-inline-item right-border-footer">
+                <a href="">Điều khoản sử dụng</a>
+            </li>
+            <li class="list-inline-item">
+                <a href="">Liên hệ</a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-copyright text-center">
+        Copyright 2015 Dutch Lady. All rights reserved.
+    </div>
+</div>
+<!-- END FOOTER SECTION -->
+

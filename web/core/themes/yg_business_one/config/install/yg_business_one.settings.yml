@@ -1,0 +1,13 @@
+logo:
+  path: 'themes/yg_business_one/logo.png'
+  use_default: false
+facebook: 'https://www.facebook.com'
+youtube: 'https://youtube.com'
+twitter: 'https://www.twitter.com'
+googleplus: 'https://plus.google.com'
+instagram: 'https://www.instagram.com'
+linkedin: 'https://www.linkedin.com'
+pintrest: 'https://www.pinterest.com'  
+yg_business_one_Template: '#'
+drupal_developers: 'https://www.drupaldevelopersstudio.com/'
+youngglobes: 'https://www.youngglobes.com/'

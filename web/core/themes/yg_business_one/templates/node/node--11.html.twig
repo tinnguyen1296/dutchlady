@@ -1,0 +1,26 @@
+<div id="dairy-nutrtion-page">
+    <div class="nutrition-tab d-flex justify-content-center container">
+        <div class="tab-child active" data-id="dairy-nutrition-1">
+          <div class="wrapper">
+            <span class="text text-uppercase">Dinh dưỡng từ sữa</span>
+          </div>
+            <!-- <span class="img">
+              <span class="text text-uppercase">Dinh dưỡng từ sữa</span>
+            </span> -->
+        </div>
+        <div class="tab-child" data-id="dairy-nutrition-2">
+          <div class="wrapper">
+            <span class="text text-uppercase">Từ đồng cỏ đến ly sữa</span>
+          </div>
+            <!-- <span class="img">
+              <span class="text text-uppercase">Từ đồng cỏ đến ly sữa</span>
+          </span> -->
+        </div>
+    </div>
+    <div id="dairy-nutrition-1" class="template">
+        {{ drupal_entity('block', 'dairynutrition1') }}
+    </div>
+    <div id="dairy-nutrition-2" class="template hidden">
+        {{ drupal_entity('block', 'dairynutrition2') }}
+    </div>
+</div>

@@ -1,0 +1,36 @@
+global-styling:
+  css:
+    base:
+      'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css': { type: external, minified: true }
+      'https://fonts.googleapis.com/css?family=Roboto|Open+Sans': { type: external, minified: true }
+      'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css': { type: external, minified: true }
+      'https://unpkg.com/aos@next/dist/aos.css': { type: external, minified: true }
+      css/carousel.css: {}
+      css/animate.css: {}
+      css/swiper.min.css: {}
+      fonts/icofont/icofont.css: {}
+      css/style.css: {}
+      css/custom.css: {}
+      css/standard.css: {}
+
+
+
+  js:
+    # 'https://code.jquery.com/jquery-3.1.1.slim.min.js': { type: external, minified: true }
+#    'https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js': { type: external, minified: true }
+    'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js': { type: external, minified: true }
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js': { type: external, minified: true }
+    'https://unpkg.com/aos@next/dist/aos.js': { type: external, minified: true }
+    'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js': { type: external, minified: true }
+    js/wow.min.js: {}
+    js/carousel.js: {}
+    js/main.js: {}
+    js/swiper.min.js: {}
+    js/custom.js: {}
+
+
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/modernizr
+    - core/drupal

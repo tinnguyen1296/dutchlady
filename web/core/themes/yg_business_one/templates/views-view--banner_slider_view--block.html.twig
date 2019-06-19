@@ -1,0 +1,26 @@
+<!-- BANNER SLIDER SECTION -->
+    <section id="banner-slider">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+           <ul class="carousel-indicators">
+              {% for result in view.result %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index-1 }}" class="{% if ( loop.index == 1 )  %}active{% endif %}"></li>
+              {% endfor %}  
+            </ul>
+            <div class="carousel-inner" role="listbox">
+            {% for result in view.result %}
+            <div class="carousel-item {% if ( loop.index == 1 )  %}active{% endif %}">
+                  <img src="{{ file_url(view.field.uri.value(view.result[loop.index-1])) }}" alt="banner_1" class="img-responsive">
+                  <div class="carousel-caption d-none d-md-block wow fadeInUp">
+                    <p>{{ view.field.field_banner_sub_head.value(view.result[loop.index-1]) }}</p>
+                    <h1>{{ view.field.field_banner_slider_head.value(view.result[loop.index-1]) |striptags }}</h1>
+                    <p>{{ view.field.field_banner_description.value(view.result[loop.index-1]) }}</br></p> 
+                    <a href="/node/{{ view.field.nid.value(view.result[loop.index-1])  }}" class="btn btn-infos">Read More</a>
+                  </div>
+            </div>
+            {% endfor %}
+                
+              </div>
+          </div>
+    </section>
+<!-- END BANNER SLIDER SECTION -->
+

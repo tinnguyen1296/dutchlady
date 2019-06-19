@@ -1,0 +1,32 @@
+name: Yg Business One
+base theme: classy
+type: theme
+description: 'A flexible, recolorable theme with many regions and a responsive, mobile-first layout.'
+# core: 8.x
+Screenshot : screenshot.png
+
+
+
+regions:
+  highlighted: Highlighted
+  header: Header
+  primary_menu: Primary menu
+  slider: slider
+  top_banner: top banner
+  bread_crumb: breadcrumb
+  content: Content
+  footer_col_1: footer first
+  footer_col_2: footer second
+  footer_col_3: footer third
+  footer_col_4: footer four
+  contact: contact
+  google_map: map
+  contact_form: webform
+
+libraries:
+  - yg_business_one/global-styling  
+# Information added by Drupal.org packaging script on 2018-07-24
+version: '8.x-1.0-alpha1'
+core: '8.x'
+project: 'yg_business_one'
+datestamp: 1532427784
