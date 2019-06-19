@@ -1,0 +1,13 @@
+dutchlady_entity.my_page:
+  path: '#'
+  defaults:
+    _controller: '\Drupal\dutchlady_entity\Controller\DutchLadyEntityController::myPage'
+    _title: 'My first page in Drupal8'
+  requirements:
+    _permission: 'access content'
+'<front>':
+  path: '/'
+  defaults:
+    _title: Home
+  requirements:
+    _access: 'TRUE'

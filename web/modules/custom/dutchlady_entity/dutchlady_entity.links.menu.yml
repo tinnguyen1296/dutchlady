@@ -1,0 +1,12 @@
+dutchlady_entity.product_parent:
+  title: 'Sản phẩm'
+  description: 'Simplest possible menu type, and the parent menu entry for others'
+  expanded: 1
+  menu_name: "main"
+  route_name: '<front>'
+
+dutchlady_entity.product_link:
+  class: Drupal\dutchlady_entity\Plugin\Menu\ProductMenuLink
+  deriver: Drupal\dutchlady_entity\Plugin\Derivative\ProductMenuLink
+  menu_name: "main"
+  parent: dutchlady_entity.product_parent

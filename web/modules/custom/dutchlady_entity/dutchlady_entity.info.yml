@@ -1,0 +1,5 @@
+name: Dutch Lady Entity
+type: module
+description: 'Dutch Lady entity'
+package: custom
+core: 8.x

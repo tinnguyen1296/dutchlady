@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Contains test.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function test_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the test module.
+    case 'help.page.test':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My Awesome Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function test_theme() {
+  return [
+    'test' => [
+      'render element' => 'children',
+    ],
+  ];
+}
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter() on behalf of test.module.
+ */
+function test_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+    // Change form id here
+    if ($form_id == 'form_test_alter_form') {
+        drupal_set_message('form_test_form_alter() executed.');
+
+    }
+}

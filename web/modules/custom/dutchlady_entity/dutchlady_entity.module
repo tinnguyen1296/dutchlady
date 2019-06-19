@@ -1,0 +1,23 @@
+<?php
+
+function dutchlady_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+//    dump($form_id);
+}
+function dutchlady_entity_inline_entity_form_table_fields_alter(&$fields, $context)
+{
+    /* Product variations (product edit form) IEF table display:
+      - Display SKU in the table
+      - Hide the price
+      */
+    if ($context['entity_type'] == 'commerce_product_variation') {
+        // Show SKU
+//        dump($fields);
+//        $fields['sku'] = [
+//            'type' => 'field',
+//            'label' => t('SKU'),
+//            'weight' => -1,
+//        ];
+//        // Hide price
+        unset($fields['price']);
+    }
+}
