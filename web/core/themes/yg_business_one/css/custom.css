@@ -17,6 +17,10 @@ ul {
   list-style-type: none;
 }
 
+.field--name-field-banner img{
+    width: 100%;
+}
+
 .navbar .navbar-nav > li > a {
     font-weight: normal !important;
     font-size: 14px !important;
@@ -57,7 +61,7 @@ ul.dropdown-menu > li.nav-item > a.nav-link {
 nav#mainNav {
     top: 0 !important;
     background-color: #19a0f4;
-    padding: 16px 0 13px 0 !important;
+    padding: 16px 0 13px 0;
 }
 
 p {
@@ -81,6 +85,10 @@ p {
 .navbar-light .navbar-nav .nav-item a {
   letter-spacing: 0!important;
   padding-left: 10px;
+}
+
+.region-footer-col-2 ul.menu {
+    margin-left: 0;
 }
 
 .pag-custom {
@@ -130,17 +138,21 @@ p {
     left: 110%;
 }
 
+.breadcrumb {
+    margin-bottom: 0;
+}
+
 .breadcrumb li:before {
     content: ''!important;
 }
 
 .breadcrumb li a {
-    color: #0099ff;
+    color: #00adee;
 }
 
 .breadcrumb li:not(:last-child) {
     padding: 0 1rem;
-    border-right: 1px solid #0099ff;
+    border-right: 1px solid #00adee;
 }
 
 .breadcrumb li:last-child {
@@ -151,12 +163,14 @@ p {
 .btn-link-custom {
     font-size: 0.9rem;
     border-radius: 2rem;
-    padding: .7rem 1.2rem;
+    padding: .8rem 1.4rem;
     background-color: #0099ff;
 }
-
+.link.node-article.node-article-hot .external-link > ul {
+    border-left: 1px solid #D8D9DB;
+}
 .link.node-article .external-link > ul > li:not(:last-child) {
-    padding-right: 1.5rem;
+    padding-right: .5rem;
 }
 
 .link.node-article .external-link > ul > li > a > i {
@@ -172,17 +186,46 @@ p {
     font-size: 1.1rem;
 }
 
-.link.node-article > .btn-more{
-    border-right: 1px solid #D8D9DB;
-}
-
-.article-detail .body img {
+#article-detail .body img {
     max-width: 100%;
     height: auto;
 }
 
+#article-detail .body p,
+#article-detail .caption > figcaption {
+    color: #6E6E6E;
+}
+
+#article-detail .node-created {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+#article-detail .other-news {
+    border-top: 1px solid #91BECD;
+    padding-top: 1rem;
+    margin-top: 2rem;
+    position: relative;
+}
+
+#article-detail .other-news::after {
+    content: '';
+    position: absolute;
+    padding-top: 1rem;
+    width: 100%;
+    top: 0;
+    border-top: 1px solid #CFFFFF;
+}
+
+#image-detail {
+    max-width: 100%;
+}
+
+
+
 @media only screen and (min-width: 768px) {
     .banner-mobile,
+    .product-mobile,
     .title-mobile,
     .introduction-block .background-mobile,
     .introduction-block .image-mobile {
@@ -190,10 +233,40 @@ p {
     }
 
     .banner-desktop,
+    .product-desktop,
     .title-desktop,
     .introduction-block .background-desktop,
     .introduction-block .image-desktop {
         display: block;
+    }
+
+
+    article#product.product_6 #videos > .row > div:first-child,
+    article#product.product_8 #videos > .row > div:first-child,
+    article#product.product_9 #videos > .row > div:first-child {
+        padding-right: 0;
+    }
+
+    article#product.product_6 #videos > .row > div:first-child .youtube-image .swiper-wrapper .swiper-slide iframe,
+    article#product.product_8 #videos > .row > div:first-child .youtube-image .swiper-wrapper .swiper-slide iframe,
+    article#product.product_9 #videos > .row > div:first-child .youtube-image .swiper-wrapper .swiper-slide iframe {
+        height: 435px;
+    }
+
+    article#product.product_6 #videos > .row > div:last-child,
+    article#product.product_8 #videos > .row > div:last-child,
+    article#product.product_9 #videos > .row > div:last-child {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .image-capacities > div:not(:last-child) {
+        margin-right: 2.5rem;
+    }
+
+    .image-capacities > div > img {
+        max-height: 200px;
+        max-width: 80px;
     }
 
     .btn-download span {
@@ -408,6 +481,7 @@ p {
 .introduction-block {
     position: relative;
     min-height: 650px;
+    width: 100%;
 }
 
 .introduction-block img {
@@ -415,7 +489,14 @@ p {
     height: auto;
 }
 
-.introduction-block .backgound-image {
+.introduction-block .background-image.background-desktop {
+    width: 100%;
+}
+
+.introduction-block .background-image.background-desktop img{
+    width: 100%;
+}
+.introduction-block .background-image {
     position: absolute;
 }
 
@@ -1205,15 +1286,15 @@ div.nutrients-title {
 
 .wrapper-image-other .wrapper-item {
     display: inline-block;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     width: 35%;
     padding: 0.25%;
     height: 210px;
 }
 
 .wrapper-image-other .item {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     height: 100%;
 }
@@ -1222,12 +1303,12 @@ div.nutrients-title {
     width: 29%;
 }
 
-#product .block-views-blockproduct-list-block-1 .title-block {
+article#product > .title-block {
     display: flex;
 }
 
 
-#product .block-views-blockproduct-list-block-1 .title-block::after {
+article#product > .title-block::after {
     content: "";
     left: 0;
     bottom: 1rem;
@@ -1367,6 +1448,9 @@ div.nutrients-title {
     color: #00adee;
 }
 
+#product-thumbnails {
+    justify-content: center;
+}
 
 @media only screen and (max-width: 1300px) {
     .navbar .navbar-nav > li > a {
@@ -1511,7 +1595,32 @@ div.nutrients-title {
 
 @media only screen and (max-width: 768px) {
 
+    .image-capacities > div > img {
+        height: calc(100% - 30px);
+    }
+
+    .image-capacities > div > span {
+        height: 20px;
+        font-size: 0.8rem;
+    }
+
+    .image-capacities > div {
+        width: 60px;
+        height: 150px;
+    }
+
+    .image-capacities > div:not(:last-child) {
+        margin-right: 1rem;
+    }
+
+    nav#mainNav {
+        top: 0 !important;
+        background-color: #19a0f4;
+        padding: 1.2rem 0;
+    }
+
     .banner-mobile,
+    .product-mobile,
     .title-mobile,
     .introduction-block .background-mobile,
     .introduction-block .image-mobile {
@@ -1519,6 +1628,7 @@ div.nutrients-title {
     }
 
     .banner-desktop,
+    .product-desktop,
     .title-desktop,
     .introduction-block .background-desktop,
     .introduction-block .image-desktop {
@@ -1545,7 +1655,7 @@ div.nutrients-title {
     }
 
     nav.navbar-light .navbar-toggler {
-      top: 2px!important;
+      top: 4px!important;
       right: 10px!important;
     }
 
@@ -1822,6 +1932,12 @@ div.nutrients-title {
         max-width: 45%;
     }
 
+    .node-article-list .f-image img {
+        height: auto;
+    }
+    .slider-news-block-2 .swiper-wrapper > .swiper-slide .views-field-title {
+        min-height: unset;
+    }
 }
 
 

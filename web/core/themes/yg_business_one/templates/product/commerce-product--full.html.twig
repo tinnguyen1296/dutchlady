@@ -19,7 +19,11 @@
  * @ingroup themeable
  */
 #}
-<article{{ attributes }} id="product">
+
+<article
+{#        {{ attributes }}#}
+        id="product"
+        class="product_{{ product.id }}">
     <div class="banner-product mb-4">
         <div class="banner-desktop">
             {{ product.field_banner }}
@@ -43,6 +47,7 @@
                         </div>
                         <div class="product-short-des">
                             {{ product.field_short_description.0 }}
+                            <p style="font-weight: 400">{{ product.field_short_description_more.0 }}</p>
                         </div>
                     </div>
                     <div class="capacities">
@@ -50,6 +55,9 @@
                             <span>Dung tích: </span>
                             <span class="product-capacities"></span>
                         </h5>
+                        <div class="image-capacities d-flex">
+
+                        </div>
                     </div>
                 </div>
 
@@ -77,9 +85,15 @@
                     </div>
                 </div>
             </div>
+            {% if product.field_image_product['#items'] is not empty %}
             <div class="col-md-6 order-md-2 order-1">
+                {% else %}
+            <div class="col-md-5 offset-md-1 order-md-2 order-1">
+
+            {% endif %}
+{#            <div class="col-md-6 order-md-2 order-1">#}
                 <div class="row">
-                    <div class="title-mobile mb-3">
+                    <div class="title-mobile mb-3" >
                         <div class="product">
                             <h3 class="h1 text-uppercase">
                                 Sản phẩm
@@ -97,15 +111,26 @@
                                 <span>Dung tích: </span>
                                 <span class="product-capacities"></span>
                             </h5>
+                            <div class="image-capacities d-flex">
+
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-3 order-2 order-md-1">
-                        {{ product.field_image_product }}
-                    </div>
-                    <div class="col-md-9 col-9 order-1 order-md-2">
+                    {% if product.field_image_product['#items'] is not empty %}
+                        <div class="col-md-3 col-3 order-2 order-md-1">
+                            {{ product.field_image_product }}
+                        </div>
+                        <div class="col-md-9 col-9 order-1 order-md-2">
+                        {% else %}
+                        <div class="col-md-12 col-12 order-1 order-md-2">
+                    {% endif %}
                         <div class="row">
+                            <div class="col-12 col-md-12 order-md-1">
+                                <div id="container-product-images-once-image" class="container-product-images-once-image">
+                                </div>
+                            </div>
                             <div class="col-9 order-2 col-md-12 order-md-1">
-                                <div id="container-product-images" class="swiper-container gallery-top container-product-images ">
+                                <div id="container-product-images" class="swiper-container gallery-top container-product-images">
                                 </div>
                             </div>
                             <div class="col-3 order-1 col-md-12 order-md-2 thumbnails">
@@ -113,7 +138,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -152,7 +176,14 @@
                 <div class="wrapper-nutrients row mt-5">
                   <div class="">
                     <div class="nutrients-title">
-                      <span class="count_chat_khoang"></span> <span>Chất Khoáng</span>
+                      <span class="count_chat_khoang"></span>
+                      <span>
+                          {% if product.id == 9 %}
+                              Chất Khoáng & Các Chất Khác
+                              {% else %}
+                              Chất Khoáng
+                          {% endif %}
+                      </span>
                     </div>
                     <div id="chat_khoang" class="paragraph paragraph-custom">
                     </div>
@@ -208,33 +239,43 @@
         </div>
 
     </div>
-    {% if product.field_videos.0 %}
+
+    {% if product.field_videos.0 is not empty %}
         <div id="videos" class="container my-4">
             <h3 class="h2">Videos</h3>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="content mb-3">
-                        {{ product.field_videos.0['#paragraph'].field_content.0.value | raw }}
-                    </div>
-                    <div class="youtube-image swiper-container">
-                        <div class="swiper-wrapper">
-                            {% for link in product.field_videos.0['#paragraph'].field_youtube_id %}
-                                <div class="swiper-slide">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ link.value }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="col-md-6 d-flex flex-column">
+{#                    <div class="">#}
+                        <div class="content mb-3 flex-1">
+                            {{ product.field_videos.0['#paragraph'].field_content.0.value | raw }}
+                        </div>
+                        <div class="flex-auto">
+                            <div class="youtube-image swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for link in product.field_videos.0['#paragraph'].field_youtube_id %}
+                                        <div class="swiper-slide">
+                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ link.value }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+
+                                    {% endfor %}
                                 </div>
 
-                            {% endfor %}
-                        </div>
-                        <div class="swiper-container youtube-thumbs">
-                            <div class="swiper-wrapper">
-                                {% for link in product.field_videos.0['#paragraph'].field_youtube_id %}
-                                    <div class="swiper-slide">
-                                        <img class="img-fluid" src="https://img.youtube.com/vi/{{ link.value }}/maxresdefault.jpg" alt="">
-                                    </div>
-                                {% endfor %}
+                                <div class="swiper-container youtube-thumbs">
+                                    {% if product.field_videos.0['#paragraph'].field_youtube_id | length > 1 %}
+                                        <div class="swiper-wrapper">
+                                            {% for link in product.field_videos.0['#paragraph'].field_youtube_id %}
+                                                <div class="swiper-slide">
+                                                    <img class="img-fluid" src="https://img.youtube.com/vi/{{ link.value }}/maxresdefault.jpg" alt="">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+{#                    </div>#}
+
                 </div>
                 {% if image_video %}
                     <div class="col-md-6 d-flex flex-column">
@@ -252,9 +293,18 @@
     {% endif %}
 
     {#TODO Block Product#}
-    {{ drupal_entity('block', 'views_block__product_list_block_1_2') }}
+    {% set product_list = drupal_view_result('product_list', 'block_1')|length %}
 
-    {% if images_other > 0%}
+    {% if product_list > 0 %}
+        <h3 class="title-block container">
+            <span>SẢN PHẨM KHÁC</span>
+        </h3>
+        {{ drupal_view('product_list', 'block_1') }}
+    {% endif %}
+
+{#    {{ drupal_entity('block', 'views_block__product_list_block_1_2') }}#}
+
+    {% if images_other > 0 %}
         <div class="container my-4">
             <div class="d-flex justify-content-center mb-2">
                 <h3 class="h4">{{ product.field_title_image_other }}</h3>

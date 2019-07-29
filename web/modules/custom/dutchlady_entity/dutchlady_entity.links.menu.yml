@@ -10,3 +10,10 @@ dutchlady_entity.product_link:
   deriver: Drupal\dutchlady_entity\Plugin\Derivative\ProductMenuLink
   menu_name: "main"
   parent: dutchlady_entity.product_parent
+
+dutchlady_entity.product_link_footer:
+  class: Drupal\dutchlady_entity\Plugin\Menu\ProductMenuLink
+  deriver: Drupal\dutchlady_entity\Plugin\Derivative\ProductMenuLink
+  menu_name: "product"
+#  parent: dutchlady_entity.product_parent_footer
+

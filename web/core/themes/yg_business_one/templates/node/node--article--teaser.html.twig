@@ -100,7 +100,8 @@
         {% if display_submitted %}
             <div class="f-created">
                 <div{{ author_attributes.addClass('node__submitted') }}>
-                    {% trans %} {{ date }} {% endtrans %}
+                    {% set createdDate = node.getCreatedTime|date('d/m/Y') %}
+                    {% trans %} {{ createdDate }} {% endtrans %}
                     {#                {{ metadata }}#}
                 </div>
             </div>

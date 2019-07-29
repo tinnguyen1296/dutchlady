@@ -40,12 +40,9 @@ var swiper_news_block2 = new Swiper('.slider-news-block-2', {
         prevEl: '.news-button-prev',
     },
     breakpoints: {
-        640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-        },
-        320: {
+        768: {
             slidesPerView: 1,
+            spaceBetween: 20,
         }
     }
 });
@@ -113,7 +110,6 @@ const videoImages = new Swiper('.youtube-image', {
     },
 });
 
-
 (function ($, Drupal, drupalSettings) {
 
     //TODO:: Implement Home Page
@@ -173,7 +169,7 @@ const videoImages = new Swiper('.youtube-image', {
             const render_image = document.getElementById('container-product-images');
             const render_thumb = document.getElementById('container-product-thumbnails');
 
-            const images = (key) => {
+            const images = key => {
                 const divWrapper = document.createElement('div');
                 divWrapper.classList.add('swiper-wrapper');
                 if(key === 'thumb') {
@@ -184,20 +180,36 @@ const videoImages = new Swiper('.youtube-image', {
 
                 variations.forEach( (item, index) => {
                     const divSlide = document.createElement('div');
-                    divSlide.classList.add('swiper-slide', 'swiper-slide-parent');
+                    divSlide.classList.add('swiper-slide', 'swiper-slide-parent', 'text-center');
                     divSlide.setAttribute('data-id', index);
                     divSlide.appendChild(renderImageFunc(item.image, key));
                     divWrapper.appendChild(divSlide);
                 });
                 return divWrapper;
             };
-            console.log(variations);
-            render_image.appendChild(images('image'));
-            render_thumb.appendChild(images('thumb'));
+
+            const renderOneImg = () => {
+                const divWrapper = document.createElement('div');
+                divWrapper.classList.add('text-center');
+                divWrapper.appendChild(renderImageFunc(variations[0].image));
+                return divWrapper;
+                // const img = document.createElement('img');
+                // img.setAttribute('src', ));
+            };
+
+            if(variations.length === 1) {
+                const render_once_image = document.getElementById('container-product-images-once-image');
+                render_once_image.appendChild(renderOneImg());
+            } else {
+                render_image.appendChild(images('image'));
+                render_thumb.appendChild(images('thumb'));
+            }
+
 
             const galleryThumbs = new Swiper('.container-product-thumbnails', {
                 spaceBetween: 30,
                 slidesPerView: 4,
+                // centeredSlides: false,
                 // freeMode: true,
                 // watchSlidesVisibility: true,
                 // watchSlidesProgress: true,
@@ -210,6 +222,7 @@ const videoImages = new Swiper('.youtube-image', {
             });
             const galleryImage = new Swiper('.container-product-images', {
                 spaceBetween: 10,
+                centeredSlides: true,
                 // effect: 'fade',
                 touchRatio: 0,
                 navigation: {
@@ -225,7 +238,7 @@ const videoImages = new Swiper('.youtube-image', {
                     const wrapper_image = document.querySelector('#product-images');
                     const img_active = wrapper_image.querySelector('.swiper-slide-active.swiper-slide-parent');
                     const key = img_active.dataset.id;
-                    console.log(img_active);
+
                     renderData(variations[key]);
                 }
             });
@@ -239,6 +252,7 @@ const videoImages = new Swiper('.youtube-image', {
 
             //Render title
             if(title.length > 0) {
+
                 let render_title = document.getElementsByClassName('product-title');
                 // console.log(typeof render_title);
                 for(let ele of render_title) {
@@ -292,14 +306,37 @@ const videoImages = new Swiper('.youtube-image', {
             }
 
             //Render capacity
+            const render_capacities = document.querySelectorAll('.product-capacities');
             if(capacities.length > 0) {
-                const render_capacities = document.querySelectorAll('.product-capacities');
+                render_capacities.forEach( item => item.parentElement.parentElement.classList.remove('hidden'));
+                const imageWrapper = document.querySelectorAll('.image-capacities');
                 // console.log(render_capacities);
                 render_capacities.forEach( node => {
                     node.innerHTML = capacities.map( item => {
-                        return item;
+                        return item.value;
                     }).join(', ');
                 });
+
+                imageWrapper.forEach( node => {
+                    node.innerHTML = '';
+                    capacities.map( item => {
+                        if(item.hasOwnProperty('image') && item['image'].length > 0) {
+                            const divWrapper = document.createElement('div');
+                            const img = document.createElement('img');
+                            const label = document.createElement('span');
+                            divWrapper.classList.add('d-flex', 'flex-column', 'align-items-center');
+                            img.setAttribute('src', item.image);
+                            // img.classList.add('img-fluid');
+                            // img.style.maxHeight = "80%";
+                            label.innerHTML = item.value;
+                            divWrapper.appendChild(img);
+                            divWrapper.appendChild(label);
+                            node.appendChild(divWrapper);
+                        }
+                    });
+                });
+            } else {
+                render_capacities.forEach( item => item.parentElement.parentElement.classList.add('hidden'));
             }
 
 
@@ -318,7 +355,8 @@ const videoImages = new Swiper('.youtube-image', {
             }
 
             //Render information
-            if(typeof information === 'object') {
+            // console.log('info', information.length);
+            if(typeof information === 'object' && information.length !== 0) {
                 const key_information = Object.keys(information);
                 const render_info = (obj, k) => {
                     let arr = obj;
@@ -387,6 +425,9 @@ const videoImages = new Swiper('.youtube-image', {
                     ul.innerHTML = render_info(information,k).join('');
                     list.appendChild(ul);
                 });
+            } else {
+                const btnInformation = document.querySelector('.wrapper-tab').firstElementChild;
+                btnInformation.classList.add('hidden');
             }
 
         }
@@ -421,20 +462,20 @@ const videoImages = new Swiper('.youtube-image', {
     //TODO:: Tab change function
     function changeTabs(wrapper, tabs, templates, isClose = true) {
         for(let tab of tabs) {
-            tab.addEventListener('click', () => {
+            tab.addEventListener('click', function() {
                 const template = wrapper.querySelector('#' + tab.dataset.id);
 
-                if(tab.classList.contains('active'))
+                if(this.classList.contains('active'))
                 {
                     if(isClose)
                     {
-                        tab.classList.remove('active');
+                        this.classList.remove('active');
                         template.classList.add('hidden');
                     }
                     return;
                 }
 
-                _handleClassesTab(tabs, tab, 'active');
+                _handleClassesTab(tabs, this, 'active');
                 _handleClassesTab(templates, template, 'hidden', false);
 
             });

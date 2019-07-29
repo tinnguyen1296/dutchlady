@@ -98,9 +98,10 @@
         {{ title_suffix }}
 
         {% if display_submitted %}
-            <div class="node-created">
+            <div class="node-created views-field-created">
                 <div{{ author_attributes.addClass('node__submitted') }}>
-                    {% trans %} {{ date }}{% endtrans %}
+                    {% set createdDate = node.getCreatedTime|date('d/m/Y') %}
+                    {% trans %} {{ createdDate }} {% endtrans %}
                 </div>
             </div>
         {% endif %}
@@ -108,7 +109,7 @@
         <div class="body">
             {{ content.body }}
         </div>
-        <div class="link node-article mt-4">
+        <div class="link node-article node-article-full mt-4">
             <div class="external-link d-flex align-items-center">
                 <ul class="list-unstyled d-flex m-0">
                     <li>
@@ -126,8 +127,8 @@
         </div>
 
         <div class="other-news">
-            <h3 class="h2 my-3">Tin Tức Khác</h3>
-            {{ drupal_view('articles', 'block_2') }}
+            <h3 class="h2 my-3 text-uppercase">Tin Khác</h3>
+            {{ drupal_view('articles_3', 'block_1') }}
     </div>
 
     </div>

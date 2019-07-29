@@ -201,50 +201,58 @@ function yg_business_one_preprocess_commerce_product(&$variables) {
     $product = $variables['elements']['#commerce_product'];
     $variables['product_url'] = $product->isNew() ? '' : $product->toUrl();
     $variables['product'] = [];
+    $variables['product']['id'] = $product->id();
     foreach (Element::children($variables['elements']) as $key) {
         $variables['product'][$key] = $variables['elements'][$key];
     }
 
-    $wrapper_videos = $product->get('field_videos');
-    $paragraph = $wrapper_videos->getValue();
-    if(!empty($paragraph)) {
-        $paragraph_id = $paragraph[0]['target_id'];
-        $data = Paragraph::load($paragraph_id);
-        $data_image = $data->get('field_image')->getValue();
-        if(!empty($data_image)) {
-            $fid = $data_image[0]['target_id'];//The file ID
-            $file = \Drupal\file\Entity\File::load($fid);
-            $path = $file->getFileUri();
-            $url_image = file_create_url($path);
+    if($product->hasField('field_videos')) {
+        $wrapper_videos = $product->get('field_videos');
 
-            $alt = $data_image[0]['alt'];
-            $title = $data_image[0]['title'];
+        $paragraph = $wrapper_videos->getValue();
+        if(!empty($paragraph)) {
+            $paragraph_id = $paragraph[0]['target_id'];
+            $data = Paragraph::load($paragraph_id);
+            $data_image = $data->get('field_image')->getValue();
+            if(!empty($data_image)) {
+                $fid = $data_image[0]['target_id'];//The file ID
+                $file = \Drupal\file\Entity\File::load($fid);
+                $path = $file->getFileUri();
+                $url_image = file_create_url($path);
 
-            $image_video = [
-                'alt' => $alt,
-                'title' => $title,
-                'image' => $url_image,
-            ];
-            $variables['image_video'] = $image_video;
+                $alt = $data_image[0]['alt'];
+                $title = $data_image[0]['title'];
+
+                $image_video = [
+                    'alt' => $alt,
+                    'title' => $title,
+                    'image' => $url_image,
+                ];
+                $variables['image_video'] = $image_video;
+            }
+
         }
-
     }
 
-    $images_other = $product->get('field_image_other')->getValue();
-    if(!empty($images_other)) {
-        $arr_image_other = [];
-        foreach($images_other as $index => $image) {
-            $fid = $image['target_id'];//The file ID
-            $file = \Drupal\file\Entity\File::load($fid);
-            $path = $file->getFileUri();
-            $url_image = file_create_url($path);
-            $arr_image_other[] = [
-                'url' => $url_image,
-                'index' => $index % 6,
-            ];
+    if($product->hasField('field_image_other')) {
+        $images_other = $product->get('field_image_other')->getValue();
+        if(!empty($images_other)) {
+            $arr_image_other = [];
+            foreach($images_other as $index => $image) {
+                $fid = $image['target_id'];//The file ID
+                $file = \Drupal\file\Entity\File::load($fid);
+                $path = $file->getFileUri();
+                $url_image = file_create_url($path);
+                $arr_image_other[] = [
+                    'url' => $url_image,
+                    'index' => $index % 6,
+                ];
+            }
+            $variables['images_other'] = $arr_image_other;
         }
-        $variables['images_other'] = $arr_image_other;
     }
+
+
 
 
 
@@ -256,51 +264,85 @@ function yg_business_one_preprocess_commerce_product(&$variables) {
         $data_variations = [];
         foreach($variations as $variation) {
             // Get title
-//            dump($variation);die;
+//            kint($variation);die;
             $title = $variation->get('field_title')->getValue();
 
             // Get image
             $images = $variation->get('field_image')->getValue();
             $arr_image = [];
             foreach($images as $image) {
+
                 $fid = $image['target_id'];//The file ID
                 $file = \Drupal\file\Entity\File::load($fid);
-                $path = $file->getFileUri();
-                $url_image = file_create_url($path);
-                $arr_image[] = $url_image;
+                if(isset($file)) {
+                    $path = $file->getFileUri();
+                    $url_image = file_create_url($path);
+                    $arr_image[] = $url_image;
+                }
+
             }
 
             $arr_image_detail = [];
-            $detail_images = $variation->get('field_image_detail')->getValue();
-            if(!empty($detail_images)) {
-                foreach($detail_images as $image) {
-                    $fid = $image['target_id'];//The file ID
-                    $file = \Drupal\file\Entity\File::load($fid);
-                    $path = $file->getFileUri();
-                    $url_image_detail = file_create_url($path);
-                    $arr_image_detail[] = $url_image_detail;
+            if($variation->hasField('field_image_detail')) {
+                $detail_images = $variation->get('field_image_detail')->getValue();
+                if(!empty($detail_images)) {
+                    foreach($detail_images as $image) {
+                        $fid = $image['target_id'];//The file ID
+                        $file = \Drupal\file\Entity\File::load($fid);
+                        if(isset($file)) {
+                            $path = $file->getFileUri();
+                            $url_image_detail = file_create_url($path);
+                            $arr_image_detail[] = $url_image_detail;
+                        }
+
+                    }
                 }
             }
 
+
             // Get capacity
-            $taxonomy_capacity = $variation->get('field_capacity')->referencedEntities();
-            $capacities = [];
-            foreach($taxonomy_capacity as $val) {
-                $capacities[] = $val->getName();
+            if($variation->hasField('field_capacity')) {
+                $container = $variation->get('field_capacity');
+                $list = [];
+                $capacities = [];
+                foreach($container as $item) {
+                    $target_id = $item->getValue()['target_id'];
+
+                    $paragraph = Paragraph::load($target_id);
+
+                    $image = $paragraph->get('field_image')->getValue();
+                    $fid = !empty($image) ? $image[0]['target_id'] : null;//The file ID
+                    $file = !empty($fid) ? \Drupal\file\Entity\File::load($fid) : null;
+                    if(isset($file)) {
+                        $path = $file->getFileUri();
+                        $url_image_detail_other = file_create_url($path);
+                        $value = $paragraph->get('field_value')->getValue()[0]['value'];
+                        $capacities[] = [
+                            'image' => $url_image_detail_other,
+                            'value' => $value
+                        ];
+                    }
+
+                }
+
             }
 
+
             // Get public profile
-            $link_profiles = $variation->get('field_public_profile')->getValue();
-            $url_profile = [];
-            foreach($link_profiles as $link) {
-                $fid = $link['target_id'];//The file ID
-                $file = \Drupal\file\Entity\File::load($fid);
-                $path = $file->getFileUri();
-                $url_profile[] = [
-                    'url' => file_create_url($path),
-                    'description' => $link['description'],
-                ];
+            if($variation->hasField('field_public_profile')) {
+                $link_profiles = $variation->get('field_public_profile')->getValue();
+                $url_profile = [];
+                foreach($link_profiles as $link) {
+                    $fid = $link['target_id'];//The file ID
+                    $file = \Drupal\file\Entity\File::load($fid);
+                    $path = $file->getFileUri();
+                    $url_profile[] = [
+                        'url' => file_create_url($path),
+                        'description' => $link['description'],
+                    ];
+                }
             }
+
 
             // Get product information
             $arr_field = $variation->getFieldDefinitions();
@@ -312,27 +354,30 @@ function yg_business_one_preprocess_commerce_product(&$variables) {
 
                 if(isset($arr_field[$field]))
                 {
-                    $container = $variation->get($field);
-                    $list = [];
+                    if($variation->hasField($field)) {
+                        $container = $variation->get($field);
+                        $list = [];
 
-                    foreach($container as $item) {
+                        foreach($container as $item) {
 
 
-                        $target_id = $item->getValue()['target_id'];
+                            $target_id = $item->getValue()['target_id'];
 //                        dump($target_id);
-                        $paragraph = Paragraph::load($target_id);
+                            $paragraph = Paragraph::load($target_id);
 
-                        if(isset($paragraph)) {
-                            $key = $paragraph->get('field_key')->getValue()[0]['value'];
-                            $value = $paragraph->get('field_value')->getValue()[0]['value'];
-                            $list[] = [
-                                'key' => $key,
-                                'value' => $value,
-                            ];
+                            if(isset($paragraph)) {
+                                $key = $paragraph->get('field_key')->getValue()[0]['value'];
+                                $value = $paragraph->get('field_value')->getValue()[0]['value'];
+                                $list[] = [
+                                    'key' => $key,
+                                    'value' => $value,
+                                ];
+                            }
+
                         }
-
+                        $information[substr($field, 6)] = $list;
                     }
-                    $information[substr($field, 6)] = $list;
+
                 }
             }
 
@@ -340,7 +385,6 @@ function yg_business_one_preprocess_commerce_product(&$variables) {
 
             if(isset($arr_field['field_content_detail'])) {
                 $container = $variation->get('field_content_detail');
-                $list = [];
                 foreach($container as $item) {
                     $target_id = $item->getValue()['target_id'];
 
@@ -358,7 +402,6 @@ function yg_business_one_preprocess_commerce_product(&$variables) {
                         'content' => $content
                     ];
                 }
-
 //                $information_other['field_content_detail'] = $list;
             }
 
@@ -367,10 +410,10 @@ function yg_business_one_preprocess_commerce_product(&$variables) {
                 'title' => $title[0]['value'],
                 'image' => $arr_image,
                 'image_detail' => $arr_image_detail,
-                'capacities' => $capacities,
-                'profiles' => $url_profile,
-                'information' => $information,
-                'information_other' => $information_other,
+                'capacities' => isset($capacities) ? $capacities : '',
+                'profiles' => isset($url_profile) ? $url_profile : '',
+                'information' => isset($information) ? $information : '',
+                'information_other' => isset($information_other) ? $information_other : '',
             );
         }
         // dump($data_variations);
